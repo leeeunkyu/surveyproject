@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+  .container
+    h1.page-header= post.surveytitle
+    p
+      span at #{moment(post.createdAt).format('YYYY-MM-DD HH:mm:ss')} 
+      p.well(style='white-space:pre;')= post.surveycontent
+      a.btn.btn-default(href='/posts') 목록

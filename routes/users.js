@@ -2,6 +2,44 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
 var Ad = require('../models/Ad');
+var Post = require('../models/Post');
+
+
+
+
+router.get('/survey/:id', function(req, res, next) {
+console.log('1');
+  Post.findById(req.params.id, function(err, post) {
+console.log(post.id);
+    if (err) {
+      return next(err);
+    }
+    res.render('start/survey',{post:post});
+  return next(new Error('not found'));
+  });
+});
+
+
+
+
+router.post('/complete',function(req,res,next){
+console.log('test');
+  var post = new Post({
+    surveytitle: req.body.surveytitle,
+    surveycontent: req.body.surveycontent
+  });
+
+  post.save(function(err, doc){
+    if(err){
+      return next(err);
+    }
+    res.redirect('/users/survey/' + doc.id);
+  });
+});
+
+
+
+
 
 
 
@@ -105,9 +143,14 @@ app.post('/signin', passport.authenticate('local-signin', {
   }));
 };
 */
+
+
+/*
 router.get('/signin', function(req, res, next) {
   res.render('user/Login');
 });
+*/
+
 
 /*
 User.find({}, function(err, user) { //데이터 베이스에 저장되있는 아이디 확인용 콘솔창으로
