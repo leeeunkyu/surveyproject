@@ -1,0 +1,29 @@
+extends ../layout
+block content
+  h1 Welcome to make
+    script(src='/javascripts/calculator.js')
+    p 
+  table(class='sur')
+    thead
+      tr
+        th
+        th 설문지 제목
+        th 질문 내용
+      
+    tbody(class="plus")
+      tr(class="dd")
+        td
+          input(type='checkbox',size='5')
+        td
+          input(type='text',size='20')
+        td
+          input(type='text',size='40') 
+        td
+                         
+    tfoot
+  input(type='button',value='주관식 질문추가',class='add')
+  input(type='button',value='질문삭제',class='del') 
+  script.
+    $(function(){
+      var survey = new initCalculator();
+    });

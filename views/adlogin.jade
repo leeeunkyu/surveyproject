@@ -1,0 +1,10 @@
+
+block content
+  h1 관리자 로그인
+  form(action='/users/adlog' ,method='POST')  
+    label(for='name') User name
+    input(type='text', id='name', name='name', placeholder='name')
+    label(for='password') Password
+    input(type='password', id='password', name='password', placeholder='Password')
+    button.btn.btn-lg.btn-primary.btn-block(type='submit') 로그인
+    a.btn.btn-xs.btn-default(href='javascript:window.history.back();') 뒤로

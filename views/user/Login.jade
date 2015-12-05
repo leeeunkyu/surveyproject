@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  .container
+    h1.page-header 로그인
+    form(action='/users/signin' ,method='POST')  
+      label(for='name') User name
+      input(type='text', id='name', name='name', placeholder='name')
+      label(for='password') Password
+      input(type='password', id='password', name='password', placeholder='Password')
+      //label(for='email') Email
+      //input(type='email', id='email', name='email', placeholder='Email', value=user.email)
+      button.btn.btn-lg.btn-primary.btn-block(type='submit') 로그인
+      a.btn.btn-default(href='javascript:window.history.back();') 뒤로
+      
