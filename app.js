@@ -8,7 +8,6 @@ var methodOverride = require('method-override');
 var session = require('express-session'); //세션쓰겠다
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
 var mongoose   = require('mongoose');
 var flash = require('connect-flash');//플레시 쓰겠다
 //var passport = require('passport');
@@ -60,12 +59,6 @@ app.use('/', routes);
 app.use('/users', users);
 
 //routeAuth(app, passport);
-
-
-
-
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

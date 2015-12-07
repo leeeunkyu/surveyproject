@@ -2,8 +2,22 @@ extends ../layout
 
 block content
   .container
-    h1.page-header= post.surveytitle
-    p
-      span at #{moment(post.createdAt).format('YYYY-MM-DD HH:mm:ss')} 
-      p.well(style='white-space:pre;')= post.surveycontent
-      a.btn.btn-default(href='/posts') 목록
+    each post in posts
+      h1.page-header= post.surveytitle
+      p
+        span at #{moment(post.createdAt).format('YYYY-MM-DD HH:mm:ss')} 
+        p.well(style='white-space:pre;')= post.surveycontent
+      table.table
+        tr
+          th content
+          th time
+        each comment in comments
+          tr
+            th= comment.content
+            td= moment(comment.createdAt).format('YYYY/MM/DD')
+          
+      form.form-inline(action='/users/' + post._id + '/comments', method='POST')
+        .form-group
+          label.sr-only(for='content') content
+          input.form-control(name='content', size=50, placeholder='content')
+        button.btn.btn-info 댓글저장

@@ -3,22 +3,57 @@ var router = express.Router();
 var User = require('../models/User');
 var Ad = require('../models/Ad');
 var Post = require('../models/Post');
+var Comment = require('../models/Comment');
 
 
 
 
-router.get('/survey/:id', function(req, res, next) {
-console.log('1');
-  Post.findById(req.params.id, function(err, post) {
-console.log(post.id);
+
+router.post('/:id/comments', function(req, res, next) {
+  var comment = new Comment({
+    content: req.body.content
+  });
+
+  comment.save(function(err) {
     if (err) {
       return next(err);
     }
-    res.render('start/survey',{post:post});
+    Post.findByIdAndUpdate(req.params.id, {$inc: {numComment: 1}}, function(err) {
+      if (err) {
+        return next(err);
+      }
+      console.log('tt');
+    });
+  });
+Post.find(req.params.id,function(err,posts){
+  Comment.find({},function(err,comments){
+  res.render('start/survey',{posts:posts,comments:comments});
+  });
+});
+});
+
+router.get('/survey/:id', function(req, res, next) {
+console.log('1');
+  Post.find({}, function(err, posts) {
+    var post = new Post({
+      surveytitle: req.body.surveytitle,
+      surveycontent: req.body.surveycontent
+    });
+    if (err) {
+      return next(err);
+    }
+    Comment.find({post: post.id}, function(err, comments) {
+      var comment = new Comment({
+        content: req.body.content
+      });
+      if (err) {
+        return next(err);
+      }
+    res.render('start/survey',{posts:posts,comments:comments});
   return next(new Error('not found'));
   });
 });
-
+});
 
 
 
@@ -33,7 +68,7 @@ console.log('test');
     if(err){
       return next(err);
     }
-    res.redirect('/users/survey/' + doc.id);
+    res.redirect('/users/make');
   });
 });
 
@@ -128,11 +163,28 @@ router.post('/adlog', function(req, res, next) {
 /* GET users listing. */
 //로그인
 router.get('/Login', function(req, res, next) {
+
   res.render('user/Login',{user:{}});
 });
 //설문지 만들기
-router.get('/make', function(req, res, next) {
+router.get('/new',function (req,res,next){
   res.render('start/makesurvey');
+});
+
+
+
+
+
+
+
+router.get('/make', function(req, res, next) {
+  Post.find({},function(err,docs){
+    if(err){
+      return next;
+    }
+  res.render('start/first',{posts:docs});
+});
+
 });
 /*
 module.exports = function(app, passport) {
@@ -175,6 +227,7 @@ router.post('/signin', function(req, res, next) {
     } else {
       //req.session.name = name;
 
+      req.flash('success', '로그인 되었습니다.');
       res.render('start/index',{user: user});
     }
 

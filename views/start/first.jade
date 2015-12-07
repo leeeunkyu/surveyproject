@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  h1 설문조사목록
+  
+  table.table
+    tr
+      th 설문 제목
+      th 작성자
+      th 작성일
+    each post in posts
+      tr
+        td
+          a(href='/users/survey/#{post.id}')= post.surveytitle
+        td= moment(post.createdAt).format('YYYY/MM/DD')
+  a.btn.btn-primary(href='/users/new') 설문지 작성
