@@ -10,7 +10,9 @@ var schema = new Schema({
   surveycontent5: {type: String},
   surveycontent6: {type: String},
   surveytitle2: {type: String, required: true, trim: true},
-  createdAt: {type: Date, default: Date.now}
+  createdAt: {type: Date, default: Date.now},
+  read: {type: Number, default: 0},
+  count: {type: Number, default: 0}
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}

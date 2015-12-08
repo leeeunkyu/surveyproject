@@ -5,6 +5,34 @@ var Ad = require('../models/Ad');
 var Post = require('../models/Post');
 var Comment = require('../models/Comment');
 
+
+router.get('/count',function(req,res,next){
+console.log("넘어오니?2");
+  Post.find({post:req.params.id , count:req.body.count},function(err,post){
+    if (err) {
+      return next(err);
+    }
+
+
+    console.log("넘어오니?");
+    post.count = post.count + 1;
+    console.log(post.count);
+
+      Post.findByIdAndUpdate(req.params.id, {$inc: {numComment: 1}}, function(err) {
+        if (err) {
+          return next(err);
+        }
+        res.redirect('/users/survey/'+ req.params.id);
+      });
+
+
+
+
+
+  });
+});
+
+
 router.post('/:id/comments', function(req, res, next) {
   var comment = new Comment({
     post: req.params.id,
@@ -34,8 +62,11 @@ console.log('1');
       if (err) {
         return next(err);
       }
-      console.log(post.surveycontent2);
-    res.render('start/survey',{post: post, comments: comments});
+      if (post) {
+      post.read = post.read + 1;
+      post.save(function(err) { });
+      res.render('start/survey',{post: post, comments: comments});
+    }
   return next(new Error('not found'));
   });
 });
@@ -247,7 +278,7 @@ router.post('/:id', function(req, res, next) {
       user.email = req.body.email;
       user.name = req.body.name;
       user.save(function(err) {
-        res.redirect('/users/first');
+        res.redirect('/users/'+user.id);
       });
     }
     //res.redirect('back');
@@ -270,12 +301,12 @@ router.post('/', function(req, res, next) {
       return next(err);
     }
     console.log(user.id);
-    res.redirect('/users/first');
+    res.redirect('/users/'+doc.id);
   });
 
 });
 
-router.get('/first', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
   console.log("tt2");
   User.findById(req.params.id, function(err, user) {
     if (err) {
