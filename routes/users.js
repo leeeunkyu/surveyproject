@@ -164,7 +164,7 @@ router.get('/Login', function(req, res, next) {
   res.render('user/Login',{user:{}});
 });
 //설문지 만들기
-router.get('/new',function (req,res,next){
+router.get('/newsurvey',function (req,res,next){
   res.render('start/makesurvey');
 });
 
@@ -234,9 +234,12 @@ router.post('/signin', function(req, res, next) {
 
 
 //아이디 새로만들고 저장
+
 router.get('/new',function(req,res,next){
+  console.log("test");
   res.render('user/newuser',{user:""});
 });
+
 
 router.post('/:id', function(req, res, next) {
 
