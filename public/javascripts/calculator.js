@@ -7,7 +7,12 @@ function initCalculator() {
 		});
 
 	$('.add2').click(function() {
-		$('.plus2').append($('.plus2').html());
+		$('.plus3').append($('.plus4').html());
+	});
+
+
+	$('.add3').click(function() {
+		$('.plus5').append($('.plus5').html());
 	});
 
 	/*

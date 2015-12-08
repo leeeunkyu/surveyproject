@@ -11,6 +11,7 @@ var Comment = require('../models/Comment');
 
 router.post('/:id/comments', function(req, res, next) {
   var comment = new Comment({
+    post: req.params.id,
     content: req.body.content
   });
 
@@ -22,34 +23,23 @@ router.post('/:id/comments', function(req, res, next) {
       if (err) {
         return next(err);
       }
-      console.log('tt');
+      res.redirect('/users/survey/'+ req.params.id);
     });
   });
-Post.find(req.params.id,function(err,posts){
-  Comment.find({},function(err,comments){
-  res.render('start/survey',{posts:posts,comments:comments});
-  });
-});
 });
 
 router.get('/survey/:id', function(req, res, next) {
 console.log('1');
-  Post.find({}, function(err, posts) {
-    var post = new Post({
-      surveytitle: req.body.surveytitle,
-      surveycontent: req.body.surveycontent
-    });
+  Post.findById(req.params.id, function(err, post) {
     if (err) {
       return next(err);
     }
     Comment.find({post: post.id}, function(err, comments) {
-      var comment = new Comment({
-        content: req.body.content
-      });
       if (err) {
         return next(err);
       }
-    res.render('start/survey',{posts:posts,comments:comments});
+      console.log(post.surveycontent2);
+    res.render('start/survey',{post: post, comments: comments});
   return next(new Error('not found'));
   });
 });
@@ -61,13 +51,20 @@ router.post('/complete',function(req,res,next){
 console.log('test');
   var post = new Post({
     surveytitle: req.body.surveytitle,
-    surveycontent: req.body.surveycontent
+    surveycontent: req.body.surveycontent,
+    surveytitle2: req.body.surveytitle2,
+    surveycontent2: req.body.surveycontent2,
+    surveycontent3: req.body.surveycontent3,
+    surveycontent4: req.body.surveycontent4,
+    surveycontent5: req.body.surveycontent5,
+    surveycontent6: req.body.surveycontent6
   });
 
   post.save(function(err, doc){
     if(err){
       return next(err);
     }
+    console.log(post.surveycontent2);
     res.redirect('/users/make');
   });
 });
@@ -178,11 +175,11 @@ router.get('/new',function (req,res,next){
 
 
 router.get('/make', function(req, res, next) {
-  Post.find({},function(err,docs){
+  Post.find({},function(err,posts){
     if(err){
       return next;
     }
-  res.render('start/first',{posts:docs});
+  res.render('start/first',{posts:posts});
 });
 
 });

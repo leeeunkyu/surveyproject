@@ -5,10 +5,10 @@ block content
     p 
   form(action='/users/complete', method='POST')  
     .form-group
-      label(for='surveytitle') 설문지 제목
+      label(for='surveytitle') 주관식 설문지 제목
       input.form-control(name='surveytitle')
     .form-group
-      label(for='surveycontent') 설문지 내용
+      label(for='surveycontent') 주관식 설문지 내용
       .plus
         .plus2
           input.form-control(name='surveycontent')
@@ -17,6 +17,31 @@ block content
       | &nbsp;
     input(type='button',value='주관식 질문추가',class='add')
     input(type='button',value='질문삭제',class='del') 
+    
+    .form-group
+      .plus3
+        .plus4
+          label(for='surveytitle2') 객관식 설문지 제목
+          input.form-control(name='surveytitle2')
+          label(for='surveycontent2') 객관식 설문지 내용
+          p
+          input(type="radio",value="1",name='surveycontent2') 
+          label(for='1')
+            input(type="text",name='surveycontent2')
+          input(type="radio",value="2",name='surveycontent3') 
+          label(for='2')
+            input(type="text",name='surveycontent3')
+          input(type="radio",value="3",name='surveycontent4') 
+          label(for='3')
+            input(type="text",name='surveycontent4')
+          input(type="radio",value="4",name='surveycontent5') 
+          label(for='4')
+            input(type="text",name='surveycontent5')  
+          input(type="radio",value="5",name='surveycontent6') 
+          label(for='5')
+            input(type="text",name='surveycontent6')
+          p           
+    input(type='button',value='객관식 문항추가',class='add2')
     button(type='submit') 설문지 완성
   script.
     $(function(){
