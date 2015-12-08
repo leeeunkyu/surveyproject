@@ -5,10 +5,6 @@ var Ad = require('../models/Ad');
 var Post = require('../models/Post');
 var Comment = require('../models/Comment');
 
-
-
-
-
 router.post('/:id/comments', function(req, res, next) {
   var comment = new Comment({
     post: req.params.id,
@@ -251,7 +247,7 @@ router.post('/:id', function(req, res, next) {
       user.email = req.body.email;
       user.name = req.body.name;
       user.save(function(err) {
-        res.redirect('/users/' + req.params.id);
+        res.redirect('/users/first');
       });
     }
     //res.redirect('back');
@@ -274,13 +270,13 @@ router.post('/', function(req, res, next) {
       return next(err);
     }
     console.log(user.id);
-    res.redirect('/users/' + doc.id);
+    res.redirect('/users/first');
   });
 
 });
 
-router.get('/:id', function(req, res, next) {
-  console.log(req.param('id'));
+router.get('/first', function(req, res, next) {
+  console.log("tt2");
   User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
@@ -289,6 +285,7 @@ router.get('/:id', function(req, res, next) {
       user.save(function(err) { });
       res.render('start/index',{user:user});
     }
+
     return next(new Error('not found'));
   });
 });
