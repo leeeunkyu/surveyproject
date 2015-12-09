@@ -13,9 +13,5 @@ router.get('/facebooklogin', function(req, res, next) {
     console.log(user);
   res.render('start/index', {user:user});
   });
-
 });
-
-
-
 module.exports = router;
