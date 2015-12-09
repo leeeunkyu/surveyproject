@@ -44,7 +44,7 @@ module.exports = function(passport) {
     callbackURL : 'http://localhost:3000/auth/facebook/callback',
     profileFields : ["emails", "displayName", "name", "photos"]
   }, function(token, refreshToken, profile, done) {
-    console.log(profile);
+    //console.log(profile);
     var email = profile.emails[0].value;
     process.nextTick(function () {
       User.findOne({'facebook.id': profile.id}, function(err, user) {
@@ -67,7 +67,7 @@ module.exports = function(passport) {
             user.facebook.id = profile.id;
             user.facebook.token = profile.token;
             user.facebook.photo = profile.photos[0].value;
-          
+
             user.save(function(err) {
               if (err) {
                 return done(err);

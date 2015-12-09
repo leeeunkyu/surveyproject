@@ -18,7 +18,7 @@ module.exports = function(app, passport) {
     function(req, res, next) {
       req.flash('success', '로그인되었습니다.');
       console.log('패스포트시작');
-      console.log(passport);
+      //console.log(passport);
         res.redirect('/facebooklogin');
     }
   );
