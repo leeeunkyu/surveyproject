@@ -27,14 +27,24 @@ console.log("넘어오니?2");
 */
 router.get('/count/:id',function(req,res,next){
 console.log("넘어오니?2");
-Post.findById(req.params.id, function(err, post) {
+Post.findById(req.params.id, function(err) {
   if(err){
     return next(err);
   }
   console.log("아이디값2");
   console.log(req.params.id);
-  if(post.count){
-  post.count = post.count + 1;
+  var post = new Post({
+    count1: req.body.count1,
+    count2: req.body.count2,
+    count3: req.body.count3,
+    count4: req.body.count4,
+    count5: req.body.count5
+  });
+  console.log("카운트값");
+  console.log(post.count1);
+  if(post.count1){
+  post.count1 = post.count1 + 1;
+
   }
   if(post.count2){
     post.count2 = post.count2 + 1;
