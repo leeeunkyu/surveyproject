@@ -30,24 +30,25 @@ block content
         .form-group
           input(type="checkbox",value="1") 
           label=post.surveycontent2
-          td=post.count
+          td=post.count1
         .form-group
           input(type="checkbox",value="2") 
           label=post.surveycontent3
-          td=post.count
+          td=post.count2
         .form-group
           input(type="checkbox",value="3") 
           label=post.surveycontent4
-          td=post.count  
+          td=post.count3
         .form-group
           input(type="checkbox",value="4") 
           label=post.surveycontent5
-          td=post.count
+          td=post.count4
         .form-group    
           input(type="checkbox",value="5") 
           label=post.surveycontent6
-          td=post.count
-      a.btn.btn-default(href='/users/count') 문항 선택
+          td=post.count5
+          
+      a.btn.btn-default(href='/users/count/#{post.id}') 문항 선택
       .form-group    
       a.btn.btn-default(href='javascript:window.history.back();') 뒤로
     script.

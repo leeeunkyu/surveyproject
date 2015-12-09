@@ -12,7 +12,11 @@ var schema = new Schema({
   surveytitle2: {type: String, required: true, trim: true},
   createdAt: {type: Date, default: Date.now},
   read: {type: Number, default: 0},
-  count: {type: Number, default: 0}
+  count1: {type: Number, default: 0},
+  count2: {type: Number, default: 0},
+  count3: {type: Number, default: 0},
+  count4: {type: Number, default: 0},
+  count5: {type: Number, default: 0},
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}

@@ -5,15 +5,13 @@ var Ad = require('../models/Ad');
 var Post = require('../models/Post');
 var Comment = require('../models/Comment');
 
-
+/*
 router.get('/count',function(req,res,next){
 console.log("넘어오니?2");
   Post.find({post:req.params.id , count:req.body.count},function(err,post){
     if (err) {
       return next(err);
     }
-
-
     console.log("넘어오니?");
     post.count = post.count + 1;
     console.log(post.count);
@@ -24,12 +22,50 @@ console.log("넘어오니?2");
         }
         res.redirect('/users/survey/'+ req.params.id);
       });
-
-
-
-
-
   });
+});
+*/
+router.get('/count/:id',function(req,res,next){
+console.log("넘어오니?2");
+Post.findById(req.params.id, function(err, post) {
+  if(err){
+    return next(err);
+  }
+  console.log("아이디값2");
+  console.log(req.params.id);
+  if(post.count){
+  post.count = post.count + 1;
+  }
+  if(post.count2){
+    post.count2 = post.count2 + 1;
+  }
+  post.save(function(err) { });
+  res.redirect('/users/survey/'+ req.params.id);
+return next(new Error('not found'));
+
+});
+});
+
+router.get('/survey/:id', function(req, res, next) {
+console.log('1');
+  Post.findById(req.params.id, function(err, post) {
+    if (err) {
+      return next(err);
+    }
+    console.log("아이디값");
+    console.log(req.params.id);
+    Comment.find({post: post.id}, function(err, comments) {
+      if (err) {
+        return next(err);
+      }
+      if (post) {
+      post.read = post.read + 1;
+      post.save(function(err) { });
+      res.render('start/survey',{post: post, comments: comments});
+    }
+  return next(new Error('not found'));
+  });
+});
 });
 
 
@@ -52,25 +88,7 @@ router.post('/:id/comments', function(req, res, next) {
   });
 });
 
-router.get('/survey/:id', function(req, res, next) {
-console.log('1');
-  Post.findById(req.params.id, function(err, post) {
-    if (err) {
-      return next(err);
-    }
-    Comment.find({post: post.id}, function(err, comments) {
-      if (err) {
-        return next(err);
-      }
-      if (post) {
-      post.read = post.read + 1;
-      post.save(function(err) { });
-      res.render('start/survey',{post: post, comments: comments});
-    }
-  return next(new Error('not found'));
-  });
-});
-});
+
 
 
 
