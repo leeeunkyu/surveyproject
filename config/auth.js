@@ -1,3 +1,4 @@
+/*
 var LocalStrategy = require('passport-local').Strategy,
     FacebookStrategy = require('passport-facebook').Strategy,
     User = require('../models/User');
@@ -80,3 +81,4 @@ module.exports = function(passport) {
     });
   }));
 };
+*/

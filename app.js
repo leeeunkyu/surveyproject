@@ -11,9 +11,9 @@ var users = require('./routes/users');
 var calculator = require('./public/javascripts/calculator');
 var mongoose   = require('mongoose');
 var flash = require('connect-flash');//플레시 쓰겠다
-var passport = require('passport');
-var configAuth = require('./config/auth');
-var routeAuth = require('./routes/auth');
+//var passport = require('passport');
+//var configAuth = require('./config/auth');
+//var routeAuth = require('./routes/auth');
 var app = express();
 
 // view engine setup
@@ -45,8 +45,8 @@ app.use(flash());//플레시쓰겠다
 app.use(express.static(path.join(__dirname, 'public'))); //기본 루트로설정하면 public이다.
 app.use('/bower_components',  express.static(path.join(__dirname, '/bower_components')));
 
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
 
 app.use(function(req, res, next) {
   res.locals.currentUser = req.session.user;
@@ -54,12 +54,12 @@ app.use(function(req, res, next) {
   next();
 });
 
-configAuth(passport);
+//configAuth(passport);
 
 app.use('/', routes);
 app.use('/users', users);
 
-routeAuth(app, passport);
+//routeAuth(app, passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
