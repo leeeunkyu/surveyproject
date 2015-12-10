@@ -1,4 +1,4 @@
-/*
+
 module.exports = function(app, passport) {
   app.post('/signin', passport.authenticate('local-signin', {
     successRedirect : '/users/first', // redirect to the secure profile section
@@ -29,4 +29,3 @@ module.exports = function(app, passport) {
     res.redirect('/');
   });
 };
-*/
