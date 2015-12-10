@@ -27,7 +27,7 @@ console.log("넘어오니?2");
 */
 
 
-/*
+
 router.get('/count/:id',function(req,res,next){
 console.log("넘어오니?2");
 Post.findById(req.params.id, function(err) {
@@ -129,7 +129,7 @@ console.log('test');
 
 
 
-*/
+
 
 
 
