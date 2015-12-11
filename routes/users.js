@@ -4,7 +4,7 @@ var User = require('../models/User');
 var Ad = require('../models/Ad');
 var Post = require('../models/Post');
 var Comment = require('../models/Comment');
-/*
+
 router.post('/count/:id',function(req,res,next){
 Post.findById(req.params.id, function(err,post){
   if(err){
@@ -172,7 +172,7 @@ router.post('/adlog', function(req, res, next) {
   });
 });
 
-*/
+
 
 
 /* GET users listing. */
