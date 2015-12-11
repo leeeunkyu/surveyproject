@@ -1,3 +1,10 @@
+function ValueChoice(){
+
+
+}
+
+
+
 
 function initCalculator() {
 

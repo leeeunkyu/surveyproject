@@ -101,6 +101,7 @@ console.log('test');
       return next(err);
     }
     console.log(post.surveycontent2);
+
     res.redirect('/users/make');
   });
 });
