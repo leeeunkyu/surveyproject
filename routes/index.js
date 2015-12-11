@@ -10,7 +10,7 @@ router.get('/facebooklogin', function(req, res, next) {
 
   User.find({},function(err,user){
     console.log("시작@@@@@@@@@@@@@@@");
-    //console.log(user);
+    console.log(user);
   res.render('start/index', {user:user});
   });
 });

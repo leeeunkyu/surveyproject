@@ -27,8 +27,9 @@ block content
       h1.page-header= post.surveytitle2
       p 객관식 질문답변
       
+      form(action='/users/count/#{post.id}' ,method='POST')
         .form-group
-          input(type="checkbox",value="1",name="count1") 
+          input(type="checkbox",value="1") 
           label=post.surveycontent2
           td=post.count1
         .form-group
@@ -47,10 +48,10 @@ block content
           input(type="checkbox",value="5") 
           label=post.surveycontent6
           td=post.count5
-          
-      a.btn.btn-default(href='/users/count/#{post.id}') 문항 선택
-      .form-group    
-      a.btn.btn-default(href='javascript:window.history.back();') 뒤로
+        .form-group 
+          button(type='submit') 객관식답안제출
+        .form-group    
+          a.btn.btn-default(href='javascript:window.history.back();') 뒤로
     script.
     $(function(){
       var survey = new initCalculator();

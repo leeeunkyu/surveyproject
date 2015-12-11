@@ -5,55 +5,34 @@ var Ad = require('../models/Ad');
 var Post = require('../models/Post');
 var Comment = require('../models/Comment');
 
-/*
-router.get('/count',function(req,res,next){
-console.log("넘어오니?2");
-  Post.find({post:req.params.id , count:req.body.count},function(err,post){
-    if (err) {
-      return next(err);
-    }
-    console.log("넘어오니?");
-    post.count = post.count + 1;
-    console.log(post.count);
-
-      Post.findByIdAndUpdate(req.params.id, {$inc: {numComment: 1}}, function(err) {
-        if (err) {
-          return next(err);
-        }
-        res.redirect('/users/survey/'+ req.params.id);
-      });
-  });
-});
-*/
-
-
-
-router.get('/count/:id',function(req,res,next){
-console.log("넘어오니?2");
-Post.findById(req.params.id, function(err) {
+router.post('/count/:id',function(req,res,next){
+Post.findById(req.params.id, function(err,post){
   if(err){
     return next(err);
   }
-  console.log("아이디값2");
-  console.log(req.params.id);
-  var post = new Post({
-    count1: req.body.count1,
-    count2: req.body.count2,
-    count3: req.body.count3,
-    count4: req.body.count4,
-    count5: req.body.count5
-  });
-  console.log("카운트값");
-  console.log(post.count1);
-  if(post.count1){
-  post.count1 = post.count1 + 1;
+  Post.find({},function(err,value){
+    if(err){
+      return next(err);
+    }
 
-  }
-  if(post.count2){
-    post.count2 = post.count2 + 1;
-  }
-  post.save(function(err) { });
-  res.redirect('/users/survey/'+ req.params.id);
+
+    post.count1 = post.count1 +1;
+    if(post.count2){
+    post.count2 = post.count2 +1;
+    }
+    post.count3 = post.count3 +1;
+
+    if(post.count4){
+    post.count4 = post.count4 +1;
+    }
+    if(post.count5){
+    post.count5 = post.count5 +1;
+    }
+
+    post.save(function(err) {});
+    console.log(post);
+  });
+    res.redirect('/users/survey/'+ post.id);
 return next(new Error('not found'));
 
 });
@@ -65,9 +44,8 @@ console.log('1');
     if (err) {
       return next(err);
     }
-    console.log("아이디값");
-    console.log(req.params.id);
-    Comment.find({post: post.id}, function(err, comments) {
+
+    Comment.find({post: post}, function(err, comments) {
       if (err) {
         return next(err);
       }
@@ -115,7 +93,7 @@ console.log('test');
     surveycontent3: req.body.surveycontent3,
     surveycontent4: req.body.surveycontent4,
     surveycontent5: req.body.surveycontent5,
-    surveycontent6: req.body.surveycontent6
+    surveycontent6: req.body.surveycontent6,
   });
 
   post.save(function(err, doc){
@@ -133,20 +111,7 @@ console.log('test');
 
 
 
-//계정 삭제하기
-/*
-router.put('/delete', function(req, res, next) {
-console.log('1');
-  User.findOneAndRemove(req.param.id,function(err,user) {
-    if (err) {
-      console.log('1');
-      return next(err);
-    }
-    res.redirect('back');
-  });
-});
-*/
-
+//계정 삭제하제
 
 
 
@@ -167,12 +132,6 @@ router.delete('/:id', function(req, res, next) {
     });
     });
 });
-
-
-
-
-
-
 
 
 router.get('/ad', function(req, res, next) {
@@ -241,29 +200,6 @@ router.get('/make', function(req, res, next) {
 });
 
 });
-/*
-module.exports = function(app, passport) {
-app.post('/signin', passport.authenticate('local-signin', {
-    successRedirect : '/todos', // redirect to the secure profile section
-    failureRedirect : '/signin', // redirect back to the signup page if there is an error
-    failureFlash : true // allow flash messages
-  }));
-};
-*/
-
-
-/*
-router.get('/signin', function(req, res, next) {
-  res.render('user/Login');
-});
-*/
-
-
-/*
-User.find({}, function(err, user) { //데이터 베이스에 저장되있는 아이디 확인용 콘솔창으로
-console.log(user);
-  });*/
-
 
 router.post('/signin', function(req, res, next) {
   console.log(req.body);                      //로그인용
