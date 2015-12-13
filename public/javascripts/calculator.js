@@ -1,4 +1,4 @@
-function ValueChoice(){
+function Valuecheck(){
 
 
 }
@@ -28,13 +28,20 @@ function initCalculator() {
 	});*/
 	$('.del').click(function() {
 		if (confirm("정말 삭제하시겠습니까?")) {
-
-
-
 			$('.plus2').appendTo($('.plus2').html());
-
-
-
 		}
 	});
+	$(".pl").hide();
+
+	$(".add3").click(function () {
+		console.log('test');
+		 $(".pl").show();
+	 });
+
+
+
+
+
+
+
 }

@@ -2,57 +2,64 @@ extends ../layout
 
 block content
   .container
-      h1.page-header= post.surveytitle
-      p
-        script(src='/javascripts/calculator.js')
-        span at #{moment(post.createdAt).format('YYYY-MM-DD HH:mm:ss')} 
-        p.well(style='white-space:pre;')= post.surveycontent
-    
-        
-        table.table
+    a.btn.btn-default(href='https://serene-garden-7561.herokuapp.com/users/survey/'+post.id) 설문지주소
+    td='https://serene-garden-7561.herokuapp.com/users/survey/'+post.id
+    h1.page-header= post.surveytitle
+    p
+      script(src='/javascripts/calculator.js')
+      span at #{moment(post.createdAt).format('YYYY-MM-DD HH:mm:ss')} 
+      p.well(style='white-space:pre;')= post.surveycontent
+      table.table
+        tr
+          th 주관식 질문 답변
+          th time
+        each comment in comments
           tr
-            th 주관식 질문 답변
-            th time
-          each comment in comments
-            tr
-              th= comment.content
-              td= moment(comment.createdAt).format('YYYY/MM/DD')
+            th= comment.content
+            td= moment(comment.createdAt).format('YYYY/MM/DD')
             
-        form.form-inline(action='/users/' + post._id + '/comments', method='POST')
-          .form-group
-            label.sr-only(for='content') content
-            input.form-control(name='content', size=50, placeholder='content')
-          button.btn.btn-info 답변 저장    
+      form.form-inline(action='/users/' + post._id + '/comments', method='POST')
+        .form-group
+          label.sr-only(for='content') content
+          input.form-control(name='content', size=50, placeholder='content')
+        button.btn.btn-info 답변 저장    
     
-      h1.page-header= post.surveytitle2
-      p 객관식 질문답변
+    h1.page-header= post.surveytitle2
+    p 객관식 질문답변
       
-      form(action='/users/count/#{post.id}' ,method='POST')
-        .form-group
-          input(type="checkbox",value="1") 
-          label=post.surveycontent2
-          td=post.count1
-        .form-group
-          input(type="checkbox",value="2") 
-          label=post.surveycontent3
-          td=post.count2
-        .form-group
-          input(type="checkbox",value="3") 
-          label=post.surveycontent4
-          td=post.count3
-        .form-group
-          input(type="checkbox",value="4") 
-          label=post.surveycontent5
-          td=post.count4
-        .form-group    
-          input(type="checkbox",value="5") 
-          label=post.surveycontent6
+    form(action='/users/count/#{post.id}' ,method='POST')
+      .form-group
+        input(type="checkbox",value="1",name='value') 
+        label=post.surveycontent2
+        td=post.count1
+      .form-group
+        input(type="checkbox",value="1",name='valu1') 
+        label=post.surveycontent3
+        td=post.count2
+      .form-group
+        input(type="checkbox") 
+        label=post.surveycontent4
+        td=post.count3
+      .form-group
+        input(type="checkbox",value="1",name='value3') 
+        label=post.surveycontent5
+        td=post.count4
+      .form-group
+        input(type="checkbox",value="1",name='value4') 
+        label=post.surveycontent6
           td=post.count5
-        .form-group 
-          button(type='submit') 객관식답안제출
-        .form-group    
-          a.btn.btn-default(href='javascript:window.history.back();') 뒤로
-    script.
+      .form-group
+        .pl
+          input(type="text",name='surveycontent7')
+        label=post.surveycontent7
+      .form-group
+        button(type='submit') 객관식답안제출
+        input(type='button',value='객관식 기타 문항추가',class='add3')
+      .form-group    
+        a.btn.btn-default(href='javascript:window.history.back();') 뒤로
+  
+  script.
     $(function(){
-      var survey = new ValueChoice();
+      var survey = new initCalculator();
     });
+        

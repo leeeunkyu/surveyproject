@@ -14,24 +14,38 @@ Post.findById(req.params.id, function(err,post){
     if(err){
       return next(err);
     }
-
-
+    var post = new Post({
+      surveycontent7:req.body.surveycontent7
+    });
+    console.log(post.surveycontent7);
+    console.log(post);
+    //console.log(value);
+    console.log('@@@@@@@@@@@벨류값');
+    //console.log(post.value);
+    if(post.value==1){
     post.count1 = post.count1 +1;
-    if(post.count2){
+    }
+    if(post.value1==1){
     post.count2 = post.count2 +1;
     }
+    if(post.value2==1){
     post.count3 = post.count3 +1;
-
-    if(post.count4){
+    }
+    if(post.value3==1){
     post.count4 = post.count4 +1;
     }
-    if(post.count5){
+    if(post.value4==1){
     post.count5 = post.count5 +1;
     }
 
     post.save(function(err) {});
+    //console.log(post);
+
+    console.log('@@@@@@@@@@');//여기까지값이있다가
     console.log(post);
+    console.log('@@@@@@@@@');
   });
+    console.log(post);//여기서날라감
     res.redirect('/users/survey/'+ post.id);
 return next(new Error('not found'));
 
@@ -40,11 +54,13 @@ return next(new Error('not found'));
 
 router.get('/survey/:id', function(req, res, next) {
 console.log('1');
+console.log('@@@@@@');
+
   Post.findById(req.params.id, function(err, post) {
     if (err) {
       return next(err);
     }
-
+    console.log(post);
     Comment.find({post: post}, function(err, comments) {
       if (err) {
         return next(err);
@@ -52,6 +68,7 @@ console.log('1');
       if (post) {
       post.read = post.read + 1;
       post.save(function(err) { });
+      console.log(post);
       res.render('start/survey',{post: post, comments: comments});
     }
   return next(new Error('not found'));
@@ -94,14 +111,16 @@ console.log('test');
     surveycontent4: req.body.surveycontent4,
     surveycontent5: req.body.surveycontent5,
     surveycontent6: req.body.surveycontent6,
+    value:req.body.value,
+    value1:req.body.value1,
+    value2:req.body.value2,
+    value3:req.body.value3,
+    value4:req.body.value4
   });
-
-  post.save(function(err, doc){
+  post.save(function(err){
     if(err){
       return next(err);
     }
-    console.log(post.surveycontent2);
-
     res.redirect('/users/make');
   });
 });
@@ -197,6 +216,7 @@ router.get('/make', function(req, res, next) {
     if(err){
       return next;
     }
+    console.log(posts);
   res.render('start/first',{posts:posts});
 });
 
