@@ -47,10 +47,4 @@ function initCalculator() {
 		 $(".pl").show();
 	 });
 
-
-
-
-
-
-
 }
