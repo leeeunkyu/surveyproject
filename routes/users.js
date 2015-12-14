@@ -5,6 +5,44 @@ var Ad = require('../models/Ad');
 var Post = require('../models/Post');
 var Comment = require('../models/Comment');
 
+router.delete('/edit/:id', function(req, res, next) {
+  User.findOneAndRemove({_id: req.params.id}, function(err) {
+    if (err) {
+      return next(err);
+    }
+    User.find({},function(err,users){
+      res.render('/index');
+    });
+    });
+});
+
+router.get('/edit/:id',function(req,res,next) {
+  User.findById(req.params.id,function(err,user){
+  res.render("user/edit",{user:user});
+  });
+});
+
+
+
+
+router.put('/signin2/:id', function(req, res, next) { //로그인
+  var user = new User({
+    name:req.body.name,
+    email:req.body.email,
+    password:req.body.password
+  });
+      console.log('@@@@@@@@@@@@@@');
+      user.save(function(err){
+        if(err){
+          return next;
+        }
+      res.render('start/index',{user:user});
+    });
+});
+
+
+
+
 router.post('/count/:id',function(req,res,next){
 Post.findById(req.params.id, function(err,post){
   if(err){
@@ -15,7 +53,19 @@ Post.findById(req.params.id, function(err,post){
       return next(err);
     }
     var post = new Post({
-      surveycontent7:req.body.surveycontent7
+      surveycontent7:req.body.surveycontent7,
+      count1:req.body.count1,
+      count2:req.body.count2,
+      count3:req.body.count3,
+      count4:req.body.count4,
+      count5:req.body.count5,
+      value1:req.body.value1,
+      value2:req.body.value2,
+      value3:req.body.value3,
+      value4:req.body.value4,
+      value:req.body.value,
+
+
     });
     console.log(post.surveycontent7);
     console.log(post);
@@ -41,13 +91,27 @@ Post.findById(req.params.id, function(err,post){
     post.save(function(err) {});
     //console.log(post);
 
-    console.log('@@@@@@@@@@');//여기까지값이있다가
+    console.log('@@@@@@@@@@');//여기까지값이날라감
     console.log(post);
     console.log('@@@@@@@@@');
+    console.log('여기가끝??');
+
   });
-    console.log(post);//여기서날라감
-    res.redirect('/users/survey/'+ post.id);
-return next(new Error('not found'));
+    console.log('뭐야여기안들어와??');
+    console.log(post);//여기서값이들어감
+    console.log('@@끝@@@');
+    Comment.find({post: post}, function(err, comments) {
+      if (err) {
+        return next(err);
+      }
+      if (post) {
+      post.read = post.read + 1;
+      post.save(function(err) { });
+      console.log(post);
+      res.render('start/survey',{post: post, comments: comments});
+    }
+  return next(new Error('not found'));
+  });
 
 });
 });
@@ -68,7 +132,6 @@ console.log('@@@@@@');
       if (post) {
       post.read = post.read + 1;
       post.save(function(err) { });
-      console.log(post);
       res.render('start/survey',{post: post, comments: comments});
     }
   return next(new Error('not found'));
@@ -222,8 +285,7 @@ router.get('/make', function(req, res, next) {
 
 });
 
-router.post('/signin', function(req, res, next) {
-  console.log(req.body);                      //로그인용
+router.post('/signin', function(req, res, next) { //로그인
  User.findOne({name:req.body.name}, function(err, user) {
    console.log(user);
     //console.log(user);

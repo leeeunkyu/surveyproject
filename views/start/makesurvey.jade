@@ -11,7 +11,8 @@ block content
       label(for='surveycontent') 주관식 설문지 내용
     .plus
       .plus2
-        input.form-control(name='surveycontent')
+        .plu
+          input.form-control(name='surveycontent')
     .form-action
     input(type='button',value='주관식 질문추가',class='add')
     input(type='button',value='질문삭제',class='del') 
@@ -41,6 +42,7 @@ block content
             input(type="text",name='surveycontent6')
           p          
     input(type='button',value='객관식 문항추가',class='add2')
+    input(type='button',value='객관식 문항삭제',class='del2')
     button(type='submit') 설문지 완성
     a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
     | &nbsp;

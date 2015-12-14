@@ -1,9 +1,10 @@
 extends ../layout
 
 block content
-  h1.page-header=user.name
-  p 님 환영합니다!
+  h1.page-header Username : #{user.name} 님 환영합니다.
   p
   a.btn.btn-primary(href='/users/make') 설문지 만들기.
   p
-  a.btn.btn-primary(href='/') 로그인 화면으로
+  a.btn.btn-primary(href='/users/edit/#{user.id}') 정보 관리
+  p
+  a.btn.btn-primary(href='/') 로그아웃

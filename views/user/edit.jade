@@ -1,0 +1,23 @@
+extends ../layout
+
+block content                            
+  .container  
+   h1.page-header 회원정보수정
+
+   form(action='/users/signin2/#{user._id}?_method=PUT', method='POST')    
+    //- user.id값이 있으면 메소드 put /:id위치로    없으면 post /위치로 
+    .form-group
+      label(for='name') 변경할 User name
+      input.form-control(type='text', id='name', name='name', placeholder='name', value=user.name)
+    .form-group  
+      label(for='password') 변경할 Password
+      input.form-control(type='password', id='password', name='password', placeholder='Password')
+    .form-group  
+      label(for='email') 변경할Email address
+      input.form-control(type='email', id='email', name='email', placeholder='Email', value=user.email)
+    
+    div.form-actions
+      a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
+      | 
+      a.btn.btn-default(href='/users/edit/#{user._id}?_method=DELETE') 계정 삭제
+      button.btn.btn-primary(type='submit') 완료  

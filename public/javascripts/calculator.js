@@ -31,6 +31,15 @@ function initCalculator() {
 			$('.plus2').appendTo($('.plus2').html());
 		}
 	});
+
+	$('.del2').click(function() {
+		if (confirm("정말 삭제하시겠습니까?")) {
+			$('.plus4').appendTo($('.plus4').html());
+		}
+	});
+
+
+
 	$(".pl").hide();
 
 	$(".add3").click(function () {
